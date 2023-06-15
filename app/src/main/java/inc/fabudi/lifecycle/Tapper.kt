@@ -16,7 +16,7 @@ class Tapper @JvmOverloads constructor(
     private var roundRect: View
     private var radiusLabel: TextView
     private var tapButton: Button
-    private var radius: Int = 0
+    var radius: Int = 0
 
     init {
         inflate(context, R.layout.tapper, this)
@@ -32,8 +32,15 @@ class Tapper @JvmOverloads constructor(
         return shape
     }
 
-    fun increaseRoundness() {
-        radius += 10
+    fun increaseRoundness(radius: Int) {
+        this.radius += radius
+        if (this.radius < 0) this.radius = 0
+        radiusLabel.text = radius.toString()
+        roundRect.background = getRoundDrawable(radius)
+    }
+
+    fun setRoundness(radius: Int) {
+        this.radius = radius
         radiusLabel.text = radius.toString()
         roundRect.background = getRoundDrawable(radius)
     }
